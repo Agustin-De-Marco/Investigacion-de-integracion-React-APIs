@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './ProductList.css'; 
+import Product from './Product';
+import './ProductList.css';
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -21,10 +22,10 @@ function ProductList() {
     };
 
     fetchProducts();
-  }, []); 
+  }, []);
 
   if (loading) {
-    return <div className="loading">Cargando productos... 🛍️</div>;
+    return <div className="loading">Cargando productos...</div>;
   }
 
   if (error) {
@@ -34,17 +35,15 @@ function ProductList() {
   return (
     <div className="contenedor-productos">
       <h1>Catálogo de Productos</h1>
+
       <div className="catalogo">
+
         {products.map(product => (
-          <div key={product.id} className="tarjeta-producto">
-            <img src={product.image} alt={product.title} className="imagen-producto" />
-            <div className="info-producto">
-              <h2 className="titulo-producto">{product.title}</h2>
-              <p className="precio-producto">${product.price}</p>
-            </div>
-          </div>
+          <Product key={product.id} product={product} />
         ))}
+        
       </div>
+
     </div>
   );
 }
